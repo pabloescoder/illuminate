@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import NavSearchBar from "./NavSearchBar";
+import SignUp from "../signup_login/SignUp";
+import Login from "../signup_login/Login";
 import "./Homepage.css";
 
 // TESTING!
 
 // TESTING IMAGES
-import brokenWatch from "../testing-images/broken-watch.jpg";
-import manWithCar from "../testing-images/man-with-car.jpg";
+import brokenWatch from "../../testing-images/broken-watch.jpg";
+import manWithCar from "../../testing-images/man-with-car.jpg";
 
 // Fields: id, title, isHappy(boolean), image(optional), description, likes, comments[], date, user
 const tempPostData = [
@@ -98,11 +100,32 @@ const tempPostData = [
 // END TESTING!
 
 const Homepage = ({ isHappy, handleLogoClick }) => {
+  const [openSignUp, setOpenSignUp] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
+
   return (
     <main>
-      <NavSearchBar handleLogoClick={handleLogoClick}></NavSearchBar>
+      <NavSearchBar
+        handleLogoClick={handleLogoClick}
+        handleSignUpClick={() => setOpenSignUp(true)}
+        handleLoginClick={() => setOpenLogin(true)}
+      ></NavSearchBar>
       {isHappy && <div>{"Happy! :D"}</div>}
       {!isHappy && <div>{"Unhappy! :("}</div>}
+      <SignUp
+        open={openSignUp}
+        handleOpen={() => setOpenSignUp(true)}
+        handleClose={() => setOpenSignUp(false)}
+      />
+      <Login
+        open={openLogin}
+        handleOpen={() => setOpenLogin(true)}
+        handleClose={() => setOpenLogin(false)}
+        handleSignUpClick={() => {
+          setOpenLogin(false);
+          setOpenSignUp(true);
+        }}
+      />
     </main>
   );
 };

@@ -12,7 +12,7 @@ import Menu from "@mui/material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import logo from "../images/logo.png";
+import logo from "../../images/logo.png";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -66,7 +66,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function NavSearchBar({ handleLogoClick }) {
+export default function NavSearchBar({
+  handleLogoClick,
+  handleSignUpClick,
+  handleLoginClick,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -89,14 +93,6 @@ export default function NavSearchBar({ handleLogoClick }) {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const handleSignUpClick = () => {
-    console.log("Sign Up Page");
-  };
-
-  const handleLoginClick = () => {
-    console.log("Login Page");
   };
 
   const menuId = "primary-search-account-menu";
