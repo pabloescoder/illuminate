@@ -66,7 +66,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function NavSearchBar({ handleLogoClick, handleSignUpClick }) {
+export default function NavSearchBar({
+  handleLogoClick,
+  handleSignUpClick,
+  handleLoginClick,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -89,10 +93,6 @@ export default function NavSearchBar({ handleLogoClick, handleSignUpClick }) {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const handleLoginClick = () => {
-    console.log("Login Page");
   };
 
   const menuId = "primary-search-account-menu";

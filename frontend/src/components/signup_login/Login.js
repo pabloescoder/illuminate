@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
-import { Button } from "@mui/material";
+import { Button, Link } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -18,15 +18,19 @@ const style = {
   p: 4,
 };
 
-export default function SignUp({ open, handleOpen, handleClose }) {
-  const [signUpData, setSignUpData] = React.useState({
-    username: "",
+export default function Login({
+  open,
+  handleOpen,
+  handleClose,
+  handleSignUpClick,
+}) {
+  const [loginData, setLoginData] = React.useState({
     email: "",
     password: "",
   });
 
   const handleChange = (event) => {
-    setSignUpData((prevValue) => {
+    setLoginData((prevValue) => {
       return {
         ...prevValue,
         [event.target.name]: event.target.value,
@@ -34,8 +38,8 @@ export default function SignUp({ open, handleOpen, handleClose }) {
     });
   };
 
-  const submitSignUpData = () => {
-    console.log("Sign Up Form Submitted");
+  const submitLoginData = () => {
+    console.log("Login Form Submitted");
   };
 
   return (
@@ -43,8 +47,8 @@ export default function SignUp({ open, handleOpen, handleClose }) {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="signup modal"
-        aria-describedby="Allows the user to sign up with a new account"
+        aria-labelledby="login modal"
+        aria-describedby="Allows the user to login with an existing account"
       >
         <Box sx={style}>
           <Typography
@@ -52,26 +56,17 @@ export default function SignUp({ open, handleOpen, handleClose }) {
             component="h2"
             sx={{ margin: 0, textAlign: "center" }}
           >
-            Sign Up
+            Login
           </Typography>
-          <Typography sx={{ mt: 2 }}>
-            We recommend a username that is unrelated to your personal info to
-            maintain anonymity.
+          <Typography sx={{ mt: 2, textAlign: "center" }}>
+            Welcome, great to see you back here!
           </Typography>
-          <TextField
-            sx={{ mt: 2, width: "100%" }}
-            required
-            name="username"
-            label="Username"
-            value={signUpData.username}
-            onChange={handleChange}
-          />
           <TextField
             sx={{ mt: 2, width: "100%" }}
             required
             name="email"
             label="Email"
-            value={signUpData.email}
+            value={loginData.email}
             onChange={handleChange}
           />
           <TextField
@@ -80,7 +75,7 @@ export default function SignUp({ open, handleOpen, handleClose }) {
             name="password"
             type="password"
             label="Password"
-            value={signUpData.password}
+            value={loginData.password}
             onChange={handleChange}
           />
           <Box textAlign="center">
@@ -88,11 +83,19 @@ export default function SignUp({ open, handleOpen, handleClose }) {
               variant="contained"
               size="large"
               sx={{ mt: 3, mb: -1, backgroundColor: "#00214d" }}
-              onClick={submitSignUpData}
+              onClick={submitLoginData}
             >
-              Sign Up
+              Login
             </Button>
           </Box>
+          <Link
+            component="button"
+            sx={{ mt: 3, mb: -1 }}
+            variant="body2"
+            onClick={handleSignUpClick}
+          >
+            Don't have an account?
+          </Link>
         </Box>
       </Modal>
     </div>

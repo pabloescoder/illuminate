@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NavSearchBar from "./NavSearchBar";
 import SignUp from "../signup_login/SignUp";
+import Login from "../signup_login/Login";
 import "./Homepage.css";
 
 // TESTING!
@@ -100,12 +101,14 @@ const tempPostData = [
 
 const Homepage = ({ isHappy, handleLogoClick }) => {
   const [openSignUp, setOpenSignUp] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
 
   return (
     <main>
       <NavSearchBar
         handleLogoClick={handleLogoClick}
         handleSignUpClick={() => setOpenSignUp(true)}
+        handleLoginClick={() => setOpenLogin(true)}
       ></NavSearchBar>
       {isHappy && <div>{"Happy! :D"}</div>}
       {!isHappy && <div>{"Unhappy! :("}</div>}
@@ -113,6 +116,15 @@ const Homepage = ({ isHappy, handleLogoClick }) => {
         open={openSignUp}
         handleOpen={() => setOpenSignUp(true)}
         handleClose={() => setOpenSignUp(false)}
+      />
+      <Login
+        open={openLogin}
+        handleOpen={() => setOpenLogin(true)}
+        handleClose={() => setOpenLogin(false)}
+        handleSignUpClick={() => {
+          setOpenLogin(false);
+          setOpenSignUp(true);
+        }}
       />
     </main>
   );
