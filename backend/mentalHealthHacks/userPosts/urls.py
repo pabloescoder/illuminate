@@ -19,4 +19,24 @@ urlpatterns = [
         views.ListAllUsersPostsView.as_view(),
         name="all-users-posts",
     ),
+    # path(
+    #     "post-like/",
+    #     views.PostLikesView.as_view(),
+    #     name="post-like",
+    # ),
+    path(
+        "create-comments/",
+        views.CreateCommentView.as_view(),
+        name="create-comments",
+    ),
+    # path(
+    #     "read-comments/<id>/",
+    #     views.ReadCommentView.as_view(),
+    #     name="read-comments",
+    # ),
+    path(
+        "add-likes/",
+        views.AddLikesView.as_view(),
+        name="add-likes",
+    ), 
 ]
