@@ -143,12 +143,12 @@ SWAGGER_SETTINGS = {
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'djongo',
@@ -156,16 +156,16 @@ DATABASES = {
 #     }
 # }
 
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': ‘<database_name>’,
-#        'USER': '<database_username>',
-#        'PASSWORD': '<password>',
-#        'HOST': '<database_hostname_or_ip>',
-#        'PORT': '<database_port>',
-#    }
-# }
+DATABASES = {
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': 'my-app',
+       'USER': 'postgres',
+       'PASSWORD': '2110',
+       'HOST': 'localhost',
+       'PORT': '5432',
+   }
+}
 
 
 
