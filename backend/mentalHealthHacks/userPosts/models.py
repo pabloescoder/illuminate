@@ -1,24 +1,16 @@
 # Importing the djongo models.
+from datetime import datetime
 from django.db import models
-# from djongo import models
+import datetime
+
+from users.models import NewUser
 
 # Create your models here.
-'''
-class Comments(models.Model):
-    username = models.ForeignKey(
-    )
+from django.utils.translation import gettext_lazy as _
 
-    comment_description = models.TextField(
-        blank=False,
-    )
 
-    likes = models.IntegerField(
-        blank=False,
-        # null=False,
-        default=0,
-        verbose_name="Number of Likes",
-    )
-'''
+    
+
 
 class Posts(models.Model):
 
@@ -32,7 +24,7 @@ class Posts(models.Model):
     )
 
     post_title = models.CharField(
-        max_length=200,
+        max_length=400,
         blank=False,
         verbose_name="Title",
     )
@@ -43,14 +35,14 @@ class Posts(models.Model):
         verbose_name="Description",
     )
 
-    '''
+
     username = models.ForeignKey(
         NewUser,
         unique=False,
         on_delete=models.PROTECT,
         verbose_name=_("Post Author Username"),
     )
-    '''
+    
 
     post_image = models.ImageField(
         upload_to="postImages",
@@ -59,10 +51,26 @@ class Posts(models.Model):
         verbose_name="Image",
     )
 
-    upload_date = models.DateField(
+    upload_date = models.DateField(_("Date"), default=datetime.date.today)
+    likes = models.IntegerField(
         blank=False,
         # null=False,
-        verbose_name="Date",
+        default=0,
+        verbose_name="Number of Likes",
+    )
+   
+
+class Comments(models.Model):
+    comment_author = models.ForeignKey(
+        NewUser,
+        unique=False,
+        on_delete=models.PROTECT,
+        verbose_name=_("Comment Author"),
+        
+    )
+
+    comment_text = models.TextField(
+        blank=False,
     )
 
     likes = models.IntegerField(
@@ -71,9 +79,36 @@ class Posts(models.Model):
         default=0,
         verbose_name="Number of Likes",
     )
-
-    '''
-    comments = models.ArrayField(
-        model_container=Comments,
+    
+    post_id = models.ForeignKey(
+        Posts,
+        unique=False,
+        on_delete=models.PROTECT,
+        verbose_name=_("Post"),    
     )
-    '''
+    
+    comment_date = models.DateField(_("Date"), default=datetime.date.today)
+    
+class PostLikes(models.Model):
+    like_author = models.ForeignKey(
+        NewUser,
+        unique=False,
+        null=False,
+        on_delete=models.PROTECT,
+        verbose_name=_("Like Author"),
+    )
+    
+    post_id = models.ForeignKey(
+        Posts,
+        unique=False,
+        null=False,
+        on_delete=models.PROTECT,
+        verbose_name=_("Post_id"),
+    )
+    
+    like = models.BooleanField(
+        default=False,
+        null=False,
+        verbose_name=_("like"),
+        
+    )
