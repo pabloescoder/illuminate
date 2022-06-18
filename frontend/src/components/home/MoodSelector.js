@@ -1,6 +1,6 @@
 import React from "react";
-import happyImg from "../images/happy.png";
-import unhappyImg from "../images/unhappy.png";
+import happyImg from "../../images/happy.png";
+import unhappyImg from "../../images/unhappy.png";
 import "./MoodSelector.css";
 
 const MoodSelector = ({ handleClick }) => {

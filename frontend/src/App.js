@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import MoodSelector from "./components/MoodSelector";
-import Homepage from "./components/Homepage";
+import MoodSelector from "./components/home/MoodSelector";
+import Homepage from "./components/home/Homepage";
 import "./App.css";
 
 const App = () => {
