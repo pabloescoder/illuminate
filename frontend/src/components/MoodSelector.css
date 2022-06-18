@@ -1,0 +1,25 @@
+.mood-selector-section {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.mood-selector-section div {
+  width: 50%;
+  height: auto;
+  font-size: 0;
+}
+
+.mood-selector-section div.unhappy-side {
+  background-color: #00214d;
+}
+
+.mood-selector-section div.happy-side {
+  background-color: #ffd600;
+}
+
+.mood-selector-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
