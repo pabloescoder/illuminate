@@ -1,4 +1,5 @@
 import React from "react";
+import NavSearchBar from "./NavSearchBar";
 import "./Homepage.css";
 
 // TESTING!
@@ -99,6 +100,7 @@ const tempPostData = [
 const Homepage = ({ isHappy }) => {
   return (
     <main>
+      <NavSearchBar></NavSearchBar>
       {isHappy && <div>{"Happy! :D"}</div>}
       {!isHappy && <div>{"Unhappy! :("}</div>}
     </main>
