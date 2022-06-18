@@ -9,6 +9,11 @@
   padding: 1rem;
   border-radius: 5px;
   border: 1px solid rgb(104, 104, 104);
+  transition: border-color 0.2s ease-in-out;
+}
+
+.post-section:hover {
+  border: 1px solid rgb(172, 172, 172);
 }
 
 .post-user-details {
@@ -46,7 +51,7 @@ div.post-image > img {
   object-fit: contain;
 }
 
-.post-body {
+.post-section .post-body {
   max-height: 100px;
   font-size: 1rem;
   overflow: hidden;

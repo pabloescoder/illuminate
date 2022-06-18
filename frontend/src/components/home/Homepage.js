@@ -3,9 +3,10 @@ import NavSearchBar from "./NavSearchBar";
 import SignUp from "../signup_login/SignUp";
 import Login from "../signup_login/Login";
 import Post from "../post/Post";
+import PostMagnified from "../post/PostMagnified";
 import "./Homepage.css";
 
-// TESTING!
+//---------------TESTING!---------------
 
 // TESTING IMAGES
 import brokenWatch from "../../testing-images/broken-watch.jpg";
@@ -47,7 +48,7 @@ const tempPostData = [
     date: "02-11-2021",
     title: "I bought a new car with my salary!",
     description:
-      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.",
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
     likes: 1000,
     isHappy: true,
     image: { manWithCar },
@@ -98,45 +99,61 @@ const tempPostData = [
   },
 ];
 
-const tempPostDataHappyElements = tempPostData
-  .filter((dataObj) => dataObj.isHappy)
-  .map((dataObj) => {
-    return (
-      <Post
-        key={dataObj.id}
-        id={dataObj.id}
-        user={dataObj.user}
-        date={dataObj.date}
-        title={dataObj.title}
-        description={dataObj.description}
-        likes={dataObj.likes}
-        comments={dataObj.comments}
-      />
-    );
-  });
-
-const tempPostDataUnhappyElements = tempPostData
-  .filter((dataObj) => !dataObj.isHappy)
-  .map((dataObj) => {
-    return (
-      <Post
-        key={dataObj.id}
-        id={dataObj.id}
-        user={dataObj.user}
-        date={dataObj.date}
-        title={dataObj.title}
-        description={dataObj.description}
-        likes={dataObj.likes}
-        comments={dataObj.comments}
-      />
-    );
-  });
-
-// END TESTING!
+//---------------END TESTING!---------------
 
 const Homepage = ({ isHappy, handleLogoClick }) => {
   const [openSignUp, setOpenSignUp] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
+  const [isPostMagnified, setIsPostMagnified] = useState(false);
+  const [magnifiedPostData, setMagnifiedPostData] = useState(null);
+
+  const handlePostClose = () => {
+    setIsPostMagnified(false);
+    setMagnifiedPostData(null);
+  };
+
+  const handlePostClick = (postData) => {
+    setMagnifiedPostData(postData);
+    setIsPostMagnified(true);
+  };
+
+  //---------------TESTING---------------
+  const tempPostDataHappyElements = tempPostData
+    .filter((dataObj) => dataObj.isHappy)
+    .map((dataObj) => {
+      return (
+        <Post
+          key={dataObj.id}
+          id={dataObj.id}
+          user={dataObj.user}
+          date={dataObj.date}
+          title={dataObj.title}
+          description={dataObj.description}
+          likes={dataObj.likes}
+          comments={dataObj.comments}
+          handlePostClick={() => handlePostClick(dataObj)}
+        />
+      );
+    });
+
+  const tempPostDataUnhappyElements = tempPostData
+    .filter((dataObj) => !dataObj.isHappy)
+    .map((dataObj) => {
+      return (
+        <Post
+          key={dataObj.id}
+          id={dataObj.id}
+          user={dataObj.user}
+          date={dataObj.date}
+          title={dataObj.title}
+          description={dataObj.description}
+          likes={dataObj.likes}
+          comments={dataObj.comments}
+          handlePostClick={() => handlePostClick(dataObj)}
+        />
+      );
+    });
+  //---------------END TESTING!---------------
 
   return (
     <main className="homepage-section">
@@ -145,8 +162,14 @@ const Homepage = ({ isHappy, handleLogoClick }) => {
         handleSignUpClick={() => setOpenSignUp(true)}
         handleLoginClick={() => setOpenLogin(true)}
       ></NavSearchBar>
-      {isHappy && <>{tempPostDataHappyElements}</>}
-      {!isHappy && <>{tempPostDataUnhappyElements}</>}
+      {isPostMagnified && (
+        <PostMagnified
+          postData={magnifiedPostData}
+          handlePostClose={handlePostClose}
+        />
+      )}
+      {!isPostMagnified && isHappy && <>{tempPostDataHappyElements}</>}
+      {!isPostMagnified && !isHappy && <>{tempPostDataUnhappyElements}</>}
       <SignUp
         open={openSignUp}
         handleOpen={() => setOpenSignUp(true)}

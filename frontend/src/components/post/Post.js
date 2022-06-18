@@ -1,12 +1,15 @@
 import React from "react";
-import "./Post.css";
 import { Link } from "@mui/material";
+
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CommentIcon from "@mui/icons-material/Comment";
 import { IconButton } from "@mui/material";
 import { red, common } from "@mui/material/colors";
+
 import testImg from "../../testing-images/man-with-car.jpg";
+
+import "./Post.css";
 
 // Fields: id, title, isHappy(boolean), image(optional), description, likes, comments[], date, user
 const Post = ({
@@ -19,9 +22,10 @@ const Post = ({
   description,
   likes,
   comments,
+  handlePostClick,
 }) => {
   return (
-    <section className="post-section">
+    <section className="post-section" onClick={handlePostClick}>
       <div className="post-user-details">
         <p>
           Posted by{" "}
