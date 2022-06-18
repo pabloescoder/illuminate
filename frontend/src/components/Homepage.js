@@ -97,10 +97,10 @@ const tempPostData = [
 
 // END TESTING!
 
-const Homepage = ({ isHappy }) => {
+const Homepage = ({ isHappy, handleLogoClick }) => {
   return (
     <main>
-      <NavSearchBar></NavSearchBar>
+      <NavSearchBar handleLogoClick={handleLogoClick}></NavSearchBar>
       {isHappy && <div>{"Happy! :D"}</div>}
       {!isHappy && <div>{"Unhappy! :("}</div>}
     </main>
