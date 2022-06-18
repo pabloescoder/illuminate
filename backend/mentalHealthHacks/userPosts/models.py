@@ -1,5 +1,6 @@
-# from django.db import models
-from djongo import models
+# Importing the djongo models.
+from django.db import models
+# from djongo import models
 
 # Create your models here.
 '''

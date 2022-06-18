@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import MoodSelector from "./components/MoodSelector";
-import Homepage from "./components/Homepage";
+import MoodSelector from "./components/home/MoodSelector";
+import Homepage from "./components/home/Homepage";
 import "./App.css";
 
 const App = () => {
@@ -16,10 +16,16 @@ const App = () => {
     setIsHappy(false);
   };
 
+  const handleLogoClick = () => {
+    setDisplayMoodScreen(true);
+  };
+
   return (
     <div className="App">
       {displayMoodScreen && <MoodSelector handleClick={handleMoodSelection} />}
-      {!displayMoodScreen && <Homepage isHappy={isHappy} />}
+      {!displayMoodScreen && (
+        <Homepage isHappy={isHappy} handleLogoClick={handleLogoClick} />
+      )}
     </div>
   );
 };
