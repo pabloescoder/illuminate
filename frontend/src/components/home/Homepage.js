@@ -98,21 +98,39 @@ const tempPostData = [
   },
 ];
 
-const tempPostDataElements = tempPostData.map((dataObj) => {
-  return (
-    <Post
-      key={dataObj.id}
-      id={dataObj.id}
-      user={dataObj.user}
-      date={dataObj.date}
-      title={dataObj.title}
-      isHappy={dataObj.isHappy}
-      description={dataObj.description}
-      likes={dataObj.likes}
-      comments={dataObj.comments}
-    />
-  );
-});
+const tempPostDataHappyElements = tempPostData
+  .filter((dataObj) => dataObj.isHappy)
+  .map((dataObj) => {
+    return (
+      <Post
+        key={dataObj.id}
+        id={dataObj.id}
+        user={dataObj.user}
+        date={dataObj.date}
+        title={dataObj.title}
+        description={dataObj.description}
+        likes={dataObj.likes}
+        comments={dataObj.comments}
+      />
+    );
+  });
+
+const tempPostDataUnhappyElements = tempPostData
+  .filter((dataObj) => !dataObj.isHappy)
+  .map((dataObj) => {
+    return (
+      <Post
+        key={dataObj.id}
+        id={dataObj.id}
+        user={dataObj.user}
+        date={dataObj.date}
+        title={dataObj.title}
+        description={dataObj.description}
+        likes={dataObj.likes}
+        comments={dataObj.comments}
+      />
+    );
+  });
 
 // END TESTING!
 
@@ -127,18 +145,8 @@ const Homepage = ({ isHappy, handleLogoClick }) => {
         handleSignUpClick={() => setOpenSignUp(true)}
         handleLoginClick={() => setOpenLogin(true)}
       ></NavSearchBar>
-      {isHappy && (
-        <>
-          <div>{"Happy! :D"}</div>
-          {tempPostDataElements}
-        </>
-      )}
-      {!isHappy && (
-        <>
-          <div>{"Unhappy! :("}</div>
-          {tempPostDataElements}
-        </>
-      )}
+      {isHappy && <>{tempPostDataHappyElements}</>}
+      {!isHappy && <>{tempPostDataUnhappyElements}</>}
       <SignUp
         open={openSignUp}
         handleOpen={() => setOpenSignUp(true)}
