@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NavSearchBar from "./NavSearchBar";
 import SignUp from "../signup_login/SignUp";
 import Login from "../signup_login/Login";
+import Post from "../post/Post";
 import "./Homepage.css";
 
 // TESTING!
@@ -97,6 +98,22 @@ const tempPostData = [
   },
 ];
 
+const tempPostDataElements = tempPostData.map((dataObj) => {
+  return (
+    <Post
+      key={dataObj.id}
+      id={dataObj.id}
+      user={dataObj.user}
+      date={dataObj.date}
+      title={dataObj.title}
+      isHappy={dataObj.isHappy}
+      description={dataObj.description}
+      likes={dataObj.likes}
+      comments={dataObj.comments}
+    />
+  );
+});
+
 // END TESTING!
 
 const Homepage = ({ isHappy, handleLogoClick }) => {
@@ -104,14 +121,24 @@ const Homepage = ({ isHappy, handleLogoClick }) => {
   const [openLogin, setOpenLogin] = useState(false);
 
   return (
-    <main>
+    <main className="homepage-section">
       <NavSearchBar
         handleLogoClick={handleLogoClick}
         handleSignUpClick={() => setOpenSignUp(true)}
         handleLoginClick={() => setOpenLogin(true)}
       ></NavSearchBar>
-      {isHappy && <div>{"Happy! :D"}</div>}
-      {!isHappy && <div>{"Unhappy! :("}</div>}
+      {isHappy && (
+        <>
+          <div>{"Happy! :D"}</div>
+          {tempPostDataElements}
+        </>
+      )}
+      {!isHappy && (
+        <>
+          <div>{"Unhappy! :("}</div>
+          {tempPostDataElements}
+        </>
+      )}
       <SignUp
         open={openSignUp}
         handleOpen={() => setOpenSignUp(true)}
