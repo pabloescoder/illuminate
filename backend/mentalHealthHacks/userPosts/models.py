@@ -10,7 +10,11 @@ class Posts(models.Model):
     class Meta:
         verbose_name = "User's Post"
         verbose_name_plural = "User's Post"
-
+    
+    is_happy = models.BooleanField(
+        default=False,
+    )
+    
     post_title = models.CharField(
         max_length=200,
         blank=False,
