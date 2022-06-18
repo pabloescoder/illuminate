@@ -10,6 +10,10 @@
   font-size: 0;
 }
 
+.mood-selector-section div:hover {
+  cursor: pointer;
+}
+
 .mood-selector-section div.unhappy-side {
   background-color: #00214d;
 }
