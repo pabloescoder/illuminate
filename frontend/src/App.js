@@ -16,10 +16,16 @@ const App = () => {
     setIsHappy(false);
   };
 
+  const handleLogoClick = () => {
+    setDisplayMoodScreen(true);
+  };
+
   return (
     <div className="App">
       {displayMoodScreen && <MoodSelector handleClick={handleMoodSelection} />}
-      {!displayMoodScreen && <Homepage isHappy={isHappy} />}
+      {!displayMoodScreen && (
+        <Homepage isHappy={isHappy} handleLogoClick={handleLogoClick} />
+      )}
     </div>
   );
 };

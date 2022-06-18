@@ -13,7 +13,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import logo from "../images/logo.png";
-import { borderColor } from "@mui/system";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -67,7 +66,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function NavSearchBar() {
+export default function NavSearchBar({ handleLogoClick }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -173,6 +172,7 @@ export default function NavSearchBar() {
               margin: "5px 20px 5px 0px",
             }}
             color="warning"
+            onClick={handleLogoClick}
           >
             <img
               src={logo}
