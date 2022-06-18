@@ -1,3 +1,4 @@
+# Importing the djongo models.
 from django.db import models
 # from djongo import models
 
@@ -47,9 +48,15 @@ class Posts(models.Model):
         verbose_name="Number of Likes",
     )
 
+
+    
+   
+    
+
     '''
     comments = models.ArrayField(
         blank=True,
         verbose_name="Comments"
     )
     '''
+
