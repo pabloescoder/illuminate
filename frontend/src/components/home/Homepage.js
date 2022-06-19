@@ -107,6 +107,7 @@ const Homepage = ({ isHappy, handleLogoClick }) => {
   const [openLogin, setOpenLogin] = useState(false);
   const [isPostMagnified, setIsPostMagnified] = useState(false);
   const [magnifiedPostData, setMagnifiedPostData] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   const handlePostClose = () => {
     setIsPostMagnified(false);
@@ -116,6 +117,10 @@ const Homepage = ({ isHappy, handleLogoClick }) => {
   const handlePostClick = (postData) => {
     setMagnifiedPostData(postData);
     setIsPostMagnified(true);
+  };
+
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true);
   };
 
   //---------------TESTING---------------
@@ -162,6 +167,7 @@ const Homepage = ({ isHappy, handleLogoClick }) => {
         handleLogoClick={handleLogoClick}
         handleSignUpClick={() => setOpenSignUp(true)}
         handleLoginClick={() => setOpenLogin(true)}
+        isLoggedIn={isLoggedIn}
       ></NavSearchBar>
       {isPostMagnified && (
         <PostMagnified
@@ -194,6 +200,7 @@ const Homepage = ({ isHappy, handleLogoClick }) => {
           setOpenLogin(false);
           setOpenSignUp(true);
         }}
+        handleLoginSuccess={handleLoginSuccess}
       />
     </main>
   );

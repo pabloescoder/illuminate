@@ -4,6 +4,8 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
 import { Button, Link } from "@mui/material";
+import axios from "axios";
+import AuthContext from "../../context/AuthProvider";
 
 const style = {
   position: "absolute",
@@ -23,11 +25,17 @@ export default function Login({
   handleOpen,
   handleClose,
   handleSignUpClick,
+  handleLoginSuccess,
 }) {
   const [loginData, setLoginData] = React.useState({
     email: "",
     password: "",
   });
+  const { setauth } = React.useContext(AuthContext);
+  const { setrefreshToken } = React.useContext(AuthContext);
+
+  const [isLoginSuccessful, setIsLoginSuccessful] = React.useState(false);
+  const [showLoginSuccess, setShowLoginSuccess] = React.useState(false);
 
   const handleChange = (event) => {
     setLoginData((prevValue) => {
@@ -38,9 +46,45 @@ export default function Login({
     });
   };
 
-  const submitLoginData = () => {
-    console.log("Login Form Submitted");
+  const submitLoginData = async (e) => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/user/api/login/",
+        JSON.stringify(loginData),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      // console.log(response.data);
+      //   console.log(response.accessToken);
+      //   console.log(JSON.stringify(response));
+      const accessToken = response?.data?.tokens?.access;
+      console.log(response.data);
+      setauth({ accessToken });
+      setrefreshToken(response?.data?.tokens?.refresh);
+      setIsLoginSuccessful(true);
+      setLoginData({
+        email: "",
+        password: "",
+      });
+      setShowLoginSuccess(true);
+      handleLoginSuccess();
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  React.useEffect(() => {
+    if (isLoginSuccessful) {
+      setTimeout(() => {
+        setShowLoginSuccess(false);
+        handleClose();
+      }, 2000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoginSuccessful]);
 
   return (
     <div>
@@ -58,6 +102,20 @@ export default function Login({
           >
             Login
           </Typography>
+          {showLoginSuccess && (
+            <Typography
+              sx={{
+                color: "white",
+                backgroundColor: "green",
+                textAlign: "center",
+                mt: 1,
+                padding: "0.5rem",
+                borderRadius: "5px",
+              }}
+            >
+              Logged in successfully! Closing this modal
+            </Typography>
+          )}
           <Typography sx={{ mt: 2, textAlign: "center" }}>
             Welcome, great to see you back here!
           </Typography>

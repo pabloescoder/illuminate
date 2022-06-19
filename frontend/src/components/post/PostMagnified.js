@@ -17,17 +17,8 @@ import "./PostMagnified.css";
 
 // Fields: id, title, isHappy(boolean), image(optional), description, likes, comments[], date, user
 const PostMagnified = (props) => {
-  const {
-    id,
-    user,
-    date,
-    title,
-    isHappy,
-    image,
-    description,
-    likes,
-    comments,
-  } = props.postData;
+  const { user, date, title, image, description, likes, comments } =
+    props.postData;
 
   const commentElements = comments.map((commentObj) => {
     return (

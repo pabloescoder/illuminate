@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
 import { Button } from "@mui/material";
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -25,6 +26,9 @@ export default function SignUp({ open, handleOpen, handleClose }) {
     password: "",
   });
 
+  const [isSignUpSuccessful, setIsSignUpSuccessful] = React.useState(false);
+  const [showSignUpSuccess, setShowSignUpSuccess] = React.useState(false);
+
   const handleChange = (event) => {
     setSignUpData((prevValue) => {
       return {
@@ -34,9 +38,37 @@ export default function SignUp({ open, handleOpen, handleClose }) {
     });
   };
 
-  const submitSignUpData = () => {
-    console.log("Sign Up Form Submitted");
+  const submitSignUpData = async (e) => {
+    try {
+      await axios.post(
+        "http://127.0.0.1:8000/user/api/register/",
+        JSON.stringify(signUpData),
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      //   console.log(response.data);
+      //   console.log(response.accessToken);
+      //   console.log(JSON.stringify(response));
+      setIsSignUpSuccessful(true);
+      setSignUpData({
+        username: "",
+        email: "",
+        password: "",
+      });
+      setShowSignUpSuccess(true);
+    } catch (err) {}
   };
+
+  React.useEffect(() => {
+    if (isSignUpSuccessful) {
+      setTimeout(() => {
+        setShowSignUpSuccess(false);
+        handleClose();
+      }, 2000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSignUpSuccessful]);
 
   return (
     <div>
@@ -54,6 +86,20 @@ export default function SignUp({ open, handleOpen, handleClose }) {
           >
             Sign Up
           </Typography>
+          {showSignUpSuccess && (
+            <Typography
+              sx={{
+                color: "white",
+                backgroundColor: "green",
+                textAlign: "center",
+                mt: 1,
+                padding: "0.5rem",
+                borderRadius: "5px",
+              }}
+            >
+              Signed up successfully! Closing this modal
+            </Typography>
+          )}
           <Typography sx={{ mt: 2 }}>
             We recommend a username that is unrelated to your personal info to
             maintain anonymity.
