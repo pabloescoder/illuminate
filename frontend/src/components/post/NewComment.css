@@ -1,0 +1,8 @@
+.new-comment .collapsable {
+  background-color: #00214d;
+  color: #fff;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid rgb(104, 104, 104);
+}

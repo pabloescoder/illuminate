@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "@mui/material";
 import Comment from "./Comment";
+import NewComment from "./NewComment";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -31,6 +32,7 @@ const PostMagnified = (props) => {
   const commentElements = comments.map((commentObj) => {
     return (
       <Comment
+        key={commentObj.user + commentObj.desc}
         user={commentObj.user}
         desc={commentObj.desc}
         likes={commentObj.likes}
@@ -103,6 +105,7 @@ const PostMagnified = (props) => {
           </p>
         </div>
         <h2>Comments</h2>
+        <NewComment />
         <section className="post-magnified-comments">{commentElements}</section>
       </section>
     </>
