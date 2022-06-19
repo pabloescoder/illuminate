@@ -6,6 +6,7 @@ from userPosts.models import PostLikes
 
 
 class PostSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField(source='username.username')
     id = serializers.IntegerField(read_only=True)
     is_happy = serializers.BooleanField(required=True)
     post_title = serializers.CharField(max_length=200, required=True)
@@ -18,6 +19,7 @@ class PostSerializer(serializers.ModelSerializer):
         model = Posts
         fields = [
             "id",
+            "username",
             "is_happy",
             "post_title",
             "post_description",
@@ -60,12 +62,14 @@ class UpdateLikeNumberSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     id = serializers.CharField(read_only=True)
+    comment_author = serializers.ReadOnlyField(source='comment_author.username')
     comment_text = serializers.CharField(max_length=200, required=True)
    
     class Meta:
         model = Comments
         fields = [
             "id",
+            "comment_author",
             "post_id",
             "comment_text",
         ]
