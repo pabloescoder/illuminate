@@ -1,13 +1,10 @@
 import axios from "axios";
 import { useContext } from "react";
-// import useAuth from "./useAuth";
-import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthProvider";
 
 const useRefreshToken = () => {
   // console.log(auth.refresh);
   // const { auth } = useContext(AuthContext);
-  const navigate = useNavigate();
   const { setauth } = useContext(AuthContext);
   const { refreshToken } = useContext(AuthContext);
   // console.log("refreshTOken:", refreshToken);
@@ -28,9 +25,7 @@ const useRefreshToken = () => {
       // console.log("response.data.access", response.data.access);
       setauth(response.data.access);
       return response.data.access;
-    } catch (error) {
-      navigate("/");
-    }
+    } catch (error) {}
   };
   return refresh;
 };
