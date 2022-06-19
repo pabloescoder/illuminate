@@ -14,16 +14,18 @@ import "./Post.css";
 import "./PostMagnified.css";
 
 const PostMagnified = (props) => {
-  const { user, date, title, image, description, likes, comments } =
+  const { id, user, date, title, image, description, likes, comments } =
     props.postData;
+
+  console.log(comments);
 
   const commentElements = comments.map((commentObj) => {
     return (
       <Comment
-        key={commentObj.user + commentObj.desc}
-        user={commentObj.user}
-        desc={commentObj.desc}
-        likes={commentObj.likes}
+        key={commentObj.fields.comment_author + commentObj.fields.comment_text}
+        user={commentObj.fields.comment_author}
+        desc={commentObj.fields.comment_text}
+        // likes={commentObj.likes}
       />
     );
   });
@@ -93,7 +95,7 @@ const PostMagnified = (props) => {
           </p>
         </div>
         <h2>Comments</h2>
-        <NewComment />
+        <NewComment id={id} />
         <section className="post-magnified-comments">{commentElements}</section>
       </section>
     </>

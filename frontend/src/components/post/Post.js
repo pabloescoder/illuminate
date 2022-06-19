@@ -46,6 +46,7 @@ const Post = ({
       className="post-section"
       onClick={() =>
         handlePostClick({
+          id,
           user,
           date,
           title,
