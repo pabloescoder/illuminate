@@ -43,7 +43,7 @@ const Homepage = ({ isHappy, handleLogoClick }) => {
     };
     axios(config)
       .then(function (response) {
-        setPostsData(response.data);
+        setPostsData(response.data.reverse());
       })
       .catch(function (error) {
         console.log(error);
@@ -60,7 +60,7 @@ const Homepage = ({ isHappy, handleLogoClick }) => {
               <Post
                 key={dataObj.id}
                 id={dataObj.id}
-                user={"Placeholder"}
+                user={dataObj.username}
                 date={dataObj.upload_date}
                 image={dataObj.post_image}
                 title={dataObj.post_title}
@@ -80,7 +80,7 @@ const Homepage = ({ isHappy, handleLogoClick }) => {
               <Post
                 key={dataObj.id}
                 id={dataObj.id}
-                user={"Placeholder"}
+                user={dataObj.username}
                 date={dataObj.upload_date}
                 image={dataObj.post_image}
                 title={dataObj.post_title}
