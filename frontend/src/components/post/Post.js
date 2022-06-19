@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "@mui/material";
+import axios from "axios";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -7,11 +8,8 @@ import CommentIcon from "@mui/icons-material/Comment";
 import { IconButton } from "@mui/material";
 import { red, common } from "@mui/material/colors";
 
-import testImg from "../../testing-images/man-with-car.jpg";
-
 import "./Post.css";
 
-// Fields: id, title, isHappy(boolean), image(optional), description, likes, comments[], date, user
 const Post = ({
   id,
   user,
@@ -21,11 +19,44 @@ const Post = ({
   image,
   description,
   likes,
-  comments,
   handlePostClick,
 }) => {
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    const config = {
+      method: "get",
+      url: `http://127.0.0.1:8000/userPosts/api/read-comments/${id}/`,
+      headers: {
+        Accept: "application/json",
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        setComments(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <section className="post-section" onClick={handlePostClick}>
+    <section
+      className="post-section"
+      onClick={() =>
+        handlePostClick({
+          id,
+          user,
+          date,
+          title,
+          image,
+          description,
+          likes,
+          comments,
+        })
+      }
+    >
       <div className="post-user-details">
         <p>
           Posted by{" "}
@@ -48,7 +79,7 @@ const Post = ({
       <div className="post-title">{title}</div>
       {image && (
         <div className="post-image">
-          <img src={testImg} alt="Testing" />
+          <img src={image} alt="Post graphic" />
         </div>
       )}
       <div className="post-body">{description}</div>

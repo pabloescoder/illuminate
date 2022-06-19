@@ -27,13 +27,13 @@ const Comment = ({ user, desc, likes }) => {
           {user}
         </Link>
       </div>
-      <p className="comment-body">This is a comment</p>
+      <p className="comment-body">{desc}</p>
       <p className="comment-likes">
         <IconButton aria-label="likes" sx={{ paddingLeft: 0 }}>
           <FavoriteBorderIcon fontSize="small" sx={{ color: red[500] }} />
         </IconButton>
-        <span className="bold">{likes}</span>
-        <span>Likes</span>
+        {/* <span className="bold">{likes}</span> */}
+        {/* <span>Likes</span> */}
       </p>
     </div>
   );

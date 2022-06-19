@@ -3,13 +3,10 @@ import { useEffect } from "react";
 import useRefreshToken from "./useRefreshToken";
 import useAuth from "./useAuth";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
 
 const useAxiosPrivate = () => {
   const refresh = useRefreshToken();
   // console.log("refresh:", refresh);
-  const navigate = useNavigate();
-  const location = useLocation();
   const { auth } = useAuth();
   const { setauth } = useAuth();
   useEffect(() => {
@@ -32,7 +29,6 @@ const useAxiosPrivate = () => {
         if (
           error.config.url === "http://127.0.0.1:8000/user/api/token/refresh/"
         ) {
-          navigate("/", { state: { from: location }, replace: true });
         } else if (error?.response?.status === 401 && !prevRequest?.sent) {
           prevRequest.sent = true;
 
