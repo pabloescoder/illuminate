@@ -70,10 +70,10 @@ export default function NavSearchBar({
   handleLogoClick,
   handleSignUpClick,
   handleLoginClick,
+  isLoggedIn,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
