@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-$s_m&n9=6#6ardj%kknp7t#uy&7s1md^^udq43)o!*7z8+081^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -57,6 +57,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -222,3 +223,8 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 MEDIA_ROOT = os.path.join(BASE_DIR, "Avatar")
 MEDIA_URL = "/Avatar/"
+
+# import dj_database_url
+# prob_db=dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(prob_db)
+
