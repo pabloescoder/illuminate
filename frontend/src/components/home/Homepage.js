@@ -4,6 +4,7 @@ import SignUp from "../signup_login/SignUp";
 import Login from "../signup_login/Login";
 import Post from "../post/Post";
 import PostMagnified from "../post/PostMagnified";
+import NewPost from "../post/NewPost";
 import "./Homepage.css";
 
 //---------------TESTING!---------------
@@ -168,8 +169,18 @@ const Homepage = ({ isHappy, handleLogoClick }) => {
           handlePostClose={handlePostClose}
         />
       )}
-      {!isPostMagnified && isHappy && <>{tempPostDataHappyElements}</>}
-      {!isPostMagnified && !isHappy && <>{tempPostDataUnhappyElements}</>}
+      {!isPostMagnified && isHappy && (
+        <>
+          <NewPost isHappy={isHappy} />
+          <main>{tempPostDataHappyElements}</main>
+        </>
+      )}
+      {!isPostMagnified && !isHappy && (
+        <>
+          <NewPost isHappy={isHappy} />
+          <main>{tempPostDataUnhappyElements}</main>
+        </>
+      )}
       <SignUp
         open={openSignUp}
         handleOpen={() => setOpenSignUp(true)}
