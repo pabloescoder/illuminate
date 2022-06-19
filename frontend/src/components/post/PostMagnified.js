@@ -10,12 +10,9 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { IconButton } from "@mui/material";
 import { red, common } from "@mui/material/colors";
 
-import testImg from "../../testing-images/man-with-car.jpg";
-
 import "./Post.css";
 import "./PostMagnified.css";
 
-// Fields: id, title, isHappy(boolean), image(optional), description, likes, comments[], date, user
 const PostMagnified = (props) => {
   const { user, date, title, image, description, likes, comments } =
     props.postData;
@@ -65,7 +62,7 @@ const PostMagnified = (props) => {
         <div className="post-title">{title}</div>
         {image && (
           <div className="post-image">
-            <img src={testImg} alt="Testing" />
+            <img src={image} alt="Testing" />
           </div>
         )}
         <div className="post-body">{description}</div>
