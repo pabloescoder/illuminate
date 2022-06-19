@@ -1,4 +1,3 @@
-from pyexpat import model
 from rest_framework import serializers
 from userPosts.models import Posts
 from userPosts.models import Comments
@@ -29,7 +28,6 @@ class PostSerializer(serializers.ModelSerializer):
         ]
         
 class PostLikeSerializer(serializers.ModelSerializer):
-    # like = serializers.BooleanField(read_only=True)
     class Meta:
         model = PostLikes
         fields = [
@@ -78,6 +76,3 @@ class CommentSerializer(serializers.ModelSerializer):
         response = super().to_representation(instance)
         response["post_id"] = PostSerializer(instance.post_id).data
         return response
-    
-
-        

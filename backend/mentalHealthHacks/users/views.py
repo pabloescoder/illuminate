@@ -1,6 +1,4 @@
 from django.http import HttpResponsePermanentRedirect
-from django.core import serializers
-from django.contrib.auth.decorators import login_required
 from rest_framework import generics, permissions, status, views
 from rest_framework.response import Response
 from django.http import JsonResponse

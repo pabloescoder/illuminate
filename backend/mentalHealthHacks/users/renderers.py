@@ -1,4 +1,3 @@
-from email import charset
 from rest_framework import renderers
 import json
 

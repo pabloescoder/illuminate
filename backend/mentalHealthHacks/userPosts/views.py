@@ -1,18 +1,14 @@
-from django.shortcuts import render
 from django.core import serializers
 # Create your views here.
 from userPosts import models
 from rest_framework import permissions, generics, status, viewsets
 from rest_framework.response import Response
-from django.http import JsonResponse, HttpResponse
+from django.http import  HttpResponse
 
 from rest_framework.generics import (
     ListAPIView,
     CreateAPIView,
-    RetrieveUpdateDestroyAPIView,
-    ListCreateAPIView,
-    RetrieveUpdateAPIView,
-    
+    ListCreateAPIView,    
 )
 from .serializers import (
     PostSerializer, 
@@ -50,7 +46,6 @@ class AddLikesView(ListCreateAPIView):
     def perform_create(self, serializer, format=None):
         return serializer.save(like_author=self.request.user)
   
-    
     
 class ReadLikeView(ListAPIView):
     serializer_class = PostLikeSerializer
