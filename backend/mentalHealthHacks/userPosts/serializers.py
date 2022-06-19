@@ -59,19 +59,17 @@ class UpdateLikeNumberSerializer(serializers.ModelSerializer):
    
 
 class CommentSerializer(serializers.ModelSerializer):
-    id = serializers.CharField(read_only=True)
-    comment_author = serializers.ReadOnlyField(source='comment_author.username')
-    comment_text = serializers.CharField(max_length=200, required=True)
-   
+    username = serializers.ReadOnlyField(source="username.username")
+    
     class Meta:
         model = Comments
         fields = [
             "id",
-            "comment_author",
+            "username",
             "post_id",
             "comment_text",
         ]
-        
+          
     def to_representation(self, instance):
         response = super().to_representation(instance)
         response["post_id"] = PostSerializer(instance.post_id).data

@@ -52,11 +52,11 @@ class Posts(models.Model):
    
 
 class Comments(models.Model):
-    comment_author = models.ForeignKey(
+    username = models.ForeignKey(
         NewUser,
         unique=False,
         on_delete=models.PROTECT,
-        verbose_name=_("Comment Author"),    
+        verbose_name=_("Comment Author")   
     )
 
     comment_text = models.TextField(
