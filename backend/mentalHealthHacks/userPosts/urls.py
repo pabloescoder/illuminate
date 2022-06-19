@@ -29,11 +29,11 @@ urlpatterns = [
         views.CreateCommentView.as_view(),
         name="create-comments",
     ),
-    # path(
-    #     "read-comments/<id>/",
-    #     views.ReadCommentView.as_view(),
-    #     name="read-comments",
-    # ),
+    path(
+        "read-comments/<id>/",
+        views.ReadCommentView.as_view(),
+        name="read-comments",
+    ),
     path(
         "add-likes/",
         views.AddLikesView.as_view(),

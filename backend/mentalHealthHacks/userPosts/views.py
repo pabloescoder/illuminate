@@ -1,9 +1,10 @@
 from django.shortcuts import render
-
+from django.core import serializers
 # Create your views here.
 from userPosts import models
-from rest_framework import permissions, generics, status
+from rest_framework import permissions, generics, status, viewsets
 from rest_framework.response import Response
+from django.http import JsonResponse, HttpResponse
 
 from rest_framework.generics import (
     ListAPIView,
@@ -101,16 +102,14 @@ class CreateCommentView(CreateAPIView):
     def perform_create(self, serializer, format=None):
         return serializer.save(comment_author=self.request.user)
 
-# class ReadCommentView(generics.GenericAPIView):
-#     serializer_class = CommentSerializer
-#     queryset = models.Comments.objects.all()
-    
-#     def get(self, request, id, *args, **kwargs):
-#         try:
-#             return JsonResponse(self.serializer_class(self.queryset.filter(id=id)).data)
-#         except Exception as e:
-#             return Response(status=status.HTTP_400_BAD_REQUEST)
-    
+class ReadCommentView(ListAPIView):
+    serializer_class = CommentSerializer
+    queryset = models.Comments.objects.all()
+    def list(self,request,id):
+        queryset = models.Comments.objects.filter(post_id=id)
+        data = serializers.serialize('json', queryset)
+        return HttpResponse(data, content_type='application/json')
+
     
 
         
