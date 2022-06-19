@@ -43,7 +43,6 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': "User's Post",
             },
         ),
-<<<<<<< HEAD
         migrations.CreateModel(
             name='PostLikes',
             fields=[
@@ -63,6 +62,4 @@ class Migration(migrations.Migration):
                 ('username', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL, verbose_name='Comment Author')),
             ],
         ),
-=======
->>>>>>> af33d50 (Posts submitted by users are now saved to the backend)
     ]
