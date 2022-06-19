@@ -1,18 +1,14 @@
-from django.shortcuts import render
 from django.core import serializers
 # Create your views here.
 from userPosts import models
 from rest_framework import permissions, generics, status, viewsets
 from rest_framework.response import Response
-from django.http import JsonResponse, HttpResponse
+from django.http import  HttpResponse
 
 from rest_framework.generics import (
     ListAPIView,
     CreateAPIView,
-    RetrieveUpdateDestroyAPIView,
-    ListCreateAPIView,
-    RetrieveUpdateAPIView,
-    
+    ListCreateAPIView,    
 )
 from .serializers import (
     PostSerializer, 
@@ -50,7 +46,6 @@ class AddLikesView(ListCreateAPIView):
     def perform_create(self, serializer, format=None):
         return serializer.save(like_author=self.request.user)
   
-    
     
 class ReadLikeView(ListAPIView):
     serializer_class = PostLikeSerializer
@@ -130,12 +125,15 @@ class CreateCommentView(CreateAPIView):
         permissions.IsAuthenticated,
     )
     def perform_create(self, serializer, format=None):
-        return serializer.save(comment_author=self.request.user)
+        return serializer.save(username=self.request.user)
 
 class ReadCommentView(ListAPIView):
     serializer_class = CommentSerializer
     queryset = models.Comments.objects.all()
-    def list(self,request,id):
-        queryset = models.Comments.objects.filter(post_id=id)
-        data = serializers.serialize('json', queryset)
-        return HttpResponse(data, content_type='application/json')        
+    # def list(self,request,id):
+    #     queryset = models.Comments.objects.filter(post_id=id)
+        # data = serializers.serialize('json', queryset)
+        # return HttpResponse(data, content_type='application/json')
+    def display_queryset(self):
+        return self.queryset.filter(post_id=id)
+                

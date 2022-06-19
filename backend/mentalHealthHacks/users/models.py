@@ -1,4 +1,3 @@
-import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import (
@@ -48,7 +47,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
 
     username = models.CharField(
         max_length=150, blank=False, unique=True
-    )  # First name last name=== full name
+    )
     avatar = models.ImageField( upload_to="Avatar",
         blank=True,
         null=True,

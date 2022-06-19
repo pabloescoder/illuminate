@@ -1,4 +1,3 @@
-from asyncore import read
 from rest_framework import serializers
 from .models import NewUser
 from django.contrib.auth import authenticate

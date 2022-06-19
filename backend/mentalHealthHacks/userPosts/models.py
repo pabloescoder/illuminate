@@ -1,15 +1,9 @@
-# Importing the djongo models.
 from datetime import datetime
 from django.db import models
 import datetime
-
 from users.models import NewUser
-
 # Create your models here.
 from django.utils.translation import gettext_lazy as _
-
-
-    
 
 
 class Posts(models.Model):
@@ -35,7 +29,6 @@ class Posts(models.Model):
         verbose_name="Description",
     )
 
-
     username = models.ForeignKey(
         NewUser,
         unique=False,
@@ -43,7 +36,6 @@ class Posts(models.Model):
         verbose_name=_("Post Author Username"),
     )
     
-
     post_image = models.ImageField(
         upload_to="postImages",
         blank=True,
@@ -54,25 +46,22 @@ class Posts(models.Model):
     upload_date = models.DateField(_("Date"), default=datetime.date.today)
     likes = models.IntegerField(
         blank=False,
-        # null=False,
         default=0,
         verbose_name="Number of Likes",
     )
    
 
 class Comments(models.Model):
-    comment_author = models.ForeignKey(
+    username = models.ForeignKey(
         NewUser,
         unique=False,
         on_delete=models.PROTECT,
-        verbose_name=_("Comment Author"),
-        
+        verbose_name=_("Comment Author")   
     )
 
     comment_text = models.TextField(
         blank=False,
     )
-
     
     post_id = models.ForeignKey(
         Posts,
@@ -94,7 +83,6 @@ class PostLikes(models.Model):
     
     post_id = models.ForeignKey(
         Posts,
-        # unique=False,
         null=True,
         on_delete=models.PROTECT,
         verbose_name=_("Post id"),
