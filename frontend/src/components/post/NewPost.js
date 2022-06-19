@@ -1,45 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import "./NewPost.css";
-import { outlinedInputClasses } from "@mui/material/OutlinedInput";
-import { inputLabelClasses } from "@mui/material/InputLabel";
-import { styled } from "@mui/material/styles";
-
-const StyledTextField = styled(TextField)({
-  [`& .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]: {
-    borderColor: "white",
-  },
-  [`&:hover .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]:
-    {
-      borderColor: "white",
-    },
-  [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.notchedOutline}`]:
-    {
-      borderColor: "white",
-    },
-  [`& .${outlinedInputClasses.input}`]: {
-    color: "white",
-  },
-  [`&:hover .${outlinedInputClasses.input}`]: {
-    color: "white",
-  },
-  [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.input}`]:
-    {
-      color: "white",
-    },
-  [`& .${inputLabelClasses.outlined}`]: {
-    color: "white",
-  },
-  [`&:hover .${inputLabelClasses.outlined}`]: {
-    color: "white",
-  },
-  [`& .${inputLabelClasses.outlined}.${inputLabelClasses.focused}`]: {
-    color: "white",
-  },
-});
+import StyledTextField from "./StyledTextField";
 
 const NewPost = ({ isHappy }) => {
   const [isPosting, setIsPosting] = useState(false);
@@ -92,12 +56,12 @@ const NewPost = ({ isHappy }) => {
     console.log(newPostData);
     setNewPostData({
       title: "",
-      date: "",
+      date: date,
       user: "",
       isHappy: { isHappy },
       description: "",
       image: "",
-      likes: "",
+      likes: 0,
       comments: [],
     });
     setIsPosting(false);
