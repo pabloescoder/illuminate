@@ -10,10 +10,17 @@ from rest_framework.generics import (
     ListAPIView,
     CreateAPIView,
     RetrieveUpdateDestroyAPIView,
-    ListCreateAPIView
+    ListCreateAPIView,
+    RetrieveUpdateAPIView,
     
 )
-from .serializers import PostSerializer, CommentSerializer, CommentLikesSerializer, PostLikeSerializer, AddLikesSerializer
+from .serializers import (
+    PostSerializer, 
+    CommentSerializer, 
+    UpdatePostLikeSerializer, 
+    PostLikeSerializer,
+    UpdateLikeNumberSerializer
+)
 from rest_framework.parsers import MultiPartParser, FormParser
 
 
@@ -32,8 +39,9 @@ class CreatePostView(ListCreateAPIView):
     def get_queryset(self):
         return self.queryset.filter(username=self.request.user)
 
-class AddLikesView(CreateAPIView):
+class AddLikesView(ListCreateAPIView):
     serializer_class = PostLikeSerializer
+    queryset = models.PostLikes.objects.all()
     permission_classes = (
         permissions.IsAuthenticated,
     )
@@ -41,36 +49,58 @@ class AddLikesView(CreateAPIView):
 
     def perform_create(self, serializer, format=None):
         return serializer.save(like_author=self.request.user)
+  
+    
+    
+class ReadLikeView(ListAPIView):
+    serializer_class = PostLikeSerializer
+    queryset = models.PostLikes.objects.all()
+    def list(self,request,id):
+        queryset = models.PostLikes.objects.filter(post_id=id,like_author=self.request.user)
+        data = serializers.serialize('json', queryset)
+        return HttpResponse(data, content_type='application/json')
+    
+class UpdateLikeStatusView(generics.GenericAPIView):
+    serializer_class = UpdatePostLikeSerializer
+    queryset = models.PostLikes.objects.all()
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
+    parser_classes = [MultiPartParser, FormParser]
 
-# class PostLikesView(generics.GenericAPIView):
-#     serializer_class = PostLikeSerializer
-#     queryset = models.Comments.objects.all()
-#     permission_classes = (
-#         permissions.IsAuthenticated,
-#     )
+    def patch(self, request):
+        serializer = self.serializer_class(data=request.data)
+        id = request.data['pk']
+        user = models.PostLikes.objects.get(pk=id)
+        serializer.is_valid(raise_exception=True)
+        try:
+            user.like = False
+            user.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    # def patch(self, request):
-    #     serializer = self.serializer_class(data=request.data)
-    #     id = request.data["post_id"]
-    #     user = models.Posts.objects.get(id=id)
-    #     serializer.is_valid(raise_exception=True)
-    #     try:
-    #         # l1 = models.PostLikes.objects.get(post_id=id, like_author=request.user)
-    #         # if l1.like==True:
-    #         #     like = user.likes
-    #         #     user.likes = like-1
-    #         #     l1.like = False
-    #         #     user.save()
-    #         # else:
-    #         #     like = user.likes
-    #         #     user.likes = like+1
-    #         #     AddLikesView.create(self, serializer)
-    #         #     user.save()
-            
-    #         user.likes = user.likes+1
-    #         return Response(serializer.data, status=status.HTTP_200_OK)
-    #     except Exception as e:
-    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  
+class UpdateLikeNumberView(generics.GenericAPIView):
+    serializer_class = UpdateLikeNumberSerializer
+    queryset = models.PostLikes.objects.all()
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
+    parser_classes = [MultiPartParser, FormParser]
+
+    def patch(self, request):
+        serializer = self.serializer_class(data=request.data)
+        id = request.data['id']
+        ln = request.data['likes']
+        user = models.Posts.objects.get(id=id)
+        serializer.is_valid(raise_exception=True)
+        try:
+            user.likes = ln
+            user.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 class ListCurrentUserPostsView(ListAPIView):
     serializer_class = PostSerializer
@@ -108,9 +138,4 @@ class ReadCommentView(ListAPIView):
     def list(self,request,id):
         queryset = models.Comments.objects.filter(post_id=id)
         data = serializers.serialize('json', queryset)
-        return HttpResponse(data, content_type='application/json')
-
-    
-
-        
-        
+        return HttpResponse(data, content_type='application/json')        

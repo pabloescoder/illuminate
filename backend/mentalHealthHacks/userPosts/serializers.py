@@ -26,7 +26,6 @@ class PostSerializer(serializers.ModelSerializer):
             "likes"
         ]
         
-
 class PostLikeSerializer(serializers.ModelSerializer):
     # like = serializers.BooleanField(read_only=True)
     class Meta:
@@ -40,33 +39,35 @@ class PostLikeSerializer(serializers.ModelSerializer):
         response["post_id"] = PostSerializer(instance.post_id).data
         return response
         
-
-class AddLikesSerializer(serializers.ModelSerializer):
-    Like = serializers.BooleanField(default=False)
+class UpdatePostLikeSerializer(serializers.ModelSerializer):
+    pk = serializers.IntegerField(read_only=False)
+    
     class Meta:
         model = PostLikes
         fields = [
-            "Like"
+            "pk", 
         ]
-    def to_representation(self, instance):
-        response = super().to_representation(instance)
-        response["post_id"] = PostSerializer(instance.post_id).data
-        return response
 
+class UpdateLikeNumberSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=False)
+    class Meta:
+        model = Posts
+        fields = [
+            "id",
+            "likes",
+        ]
+   
 
 class CommentSerializer(serializers.ModelSerializer):
     id = serializers.CharField(read_only=True)
     comment_text = serializers.CharField(max_length=200, required=True)
-    # comment_date = serializers.DateField(required=True)
-    # likes = serializers.IntegerField(required=False, default=0)
-
+   
     class Meta:
         model = Comments
         fields = [
             "id",
             "post_id",
             "comment_text",
-            # "likes",
         ]
         
     def to_representation(self, instance):
@@ -74,11 +75,5 @@ class CommentSerializer(serializers.ModelSerializer):
         response["post_id"] = PostSerializer(instance.post_id).data
         return response
     
-class CommentLikesSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=False)
-    class Meta:
-        model = Comments
-        fields = [
-            "id",
-        ]
+
         

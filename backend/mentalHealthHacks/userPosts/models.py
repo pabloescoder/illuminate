@@ -73,12 +73,6 @@ class Comments(models.Model):
         blank=False,
     )
 
-    likes = models.IntegerField(
-        blank=False,
-        # null=False,
-        default=0,
-        verbose_name="Number of Likes",
-    )
     
     post_id = models.ForeignKey(
         Posts,
@@ -100,15 +94,14 @@ class PostLikes(models.Model):
     
     post_id = models.ForeignKey(
         Posts,
-        unique=False,
-        null=False,
+        # unique=False,
+        null=True,
         on_delete=models.PROTECT,
-        verbose_name=_("Post_id"),
+        verbose_name=_("Post id"),
     )
     
     like = models.BooleanField(
         default=False,
-        null=False,
-        verbose_name=_("like"),
-        
+        null=True,
+        verbose_name=_("like"),   
     )
